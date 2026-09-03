@@ -46,6 +46,60 @@
               }
             }
           }
+        },
+        "/obtener_numero_romano": {
+          get: {
+            summary: "Obtener un numero romano aleatorio",
+            description: "Devuelve la representacion romana de un numero entre 50 y 100. No requiere parametros ni body.",
+            responses: {
+              "200": {
+                description: "Numero romano aleatorio entre 50 y 100.",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "string",
+                      example: "LXXXIV"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/duplicar_numero": {
+          get: {
+            summary: "Duplicar un numero",
+            description: "Recibe un numero entero y devuelve el mismo valor multiplicado por 2.",
+            parameters: [
+              {
+                name: "numero",
+                in: "query",
+                required: true,
+                schema: {
+                  type: "integer",
+                  format: "int64"
+                },
+                example: 7
+              }
+            ],
+            responses: {
+              "200": {
+                description: "Numero recibido multiplicado por 2.",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "integer",
+                      format: "int64",
+                      example: 14
+                    }
+                  }
+                }
+              },
+              "422": {
+                description: "El parametro numero no es un entero valido."
+              }
+            }
+          }
         }
       }
     };

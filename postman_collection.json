@@ -46,6 +46,83 @@
           }
         }
       ]
+    },
+    {
+      "name": "Obtener numero romano",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/obtener_numero_romano",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "obtener_numero_romano"
+          ]
+        },
+        "description": "Devuelve la representacion romana de un numero aleatorio entre 50 y 100. No requiere body."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('La respuesta es 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const romano = pm.response.json();",
+              "pm.test('La respuesta es un numero romano valido', function () {",
+              "    pm.expect(romano).to.be.a('string');",
+              "    pm.expect(romano).to.match(/^(L|L(I|V|X{0,3})|[LXCV]+|C)$/);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Duplicar un numero",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/duplicar_numero?numero=7",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "duplicar_numero"
+          ],
+          "query": [
+            {
+              "key": "numero",
+              "value": "7"
+            }
+          ]
+        },
+        "description": "Recibe un numero entero y devuelve el mismo valor multiplicado por 2."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('La respuesta es 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const resultado = pm.response.json();",
+              "pm.test('El numero fue multiplicado por 2', function () {",
+              "    pm.expect(resultado).to.eql(14);",
+              "});"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
