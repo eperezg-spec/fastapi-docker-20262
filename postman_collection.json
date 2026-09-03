@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "Servicio de cedulas",
+    "description": "Coleccion para probar el servicio FastAPI de generacion de cedulas aleatorias.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Obtener cedula",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/obtener_cedula",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "obtener_cedula"
+          ]
+        },
+        "description": "Devuelve un entero aleatorio de exactamente 10 digitos. No requiere body."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('La respuesta es 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const cedula = pm.response.json();",
+              "pm.test('La cedula es un entero de 10 digitos', function () {",
+              "    pm.expect(Number.isInteger(cedula)).to.be.true;",
+              "    pm.expect(cedula).to.be.within(1000000000, 9999999999);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

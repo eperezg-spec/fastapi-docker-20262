@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swagger - Servicio de cedulas</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+</head>
+<body>
+  <div id="swagger-ui"></div>
+
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    const openApiDocument = {
+      openapi: "3.0.3",
+      info: {
+        title: "Servicio de cedulas",
+        description: "Genera un numero entero aleatorio de exactamente 10 digitos.",
+        version: "1.0.0"
+      },
+      servers: [
+        {
+          url: "http://localhost:8000",
+          description: "Servicio local"
+        }
+      ],
+      paths: {
+        "/obtener_cedula": {
+          get: {
+            summary: "Obtener una cedula aleatoria",
+            description: "No requiere parametros ni body.",
+            responses: {
+              "200": {
+                description: "Numero entero aleatorio de 10 digitos.",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "integer",
+                      format: "int64",
+                      minimum: 1000000000,
+                      maximum: 9999999999,
+                      example: 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    window.onload = () => {
+      window.ui = SwaggerUIBundle({
+        spec: openApiDocument,
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        displayRequestDuration: true,
+        persistAuthorization: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: "StandaloneLayout"
+      });
+    };
+  </script>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
+</body>
+</html>
